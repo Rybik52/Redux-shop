@@ -1,0 +1,25 @@
+@import "variables/variables.scss";
+
+.welcome {
+  width: 100vw;
+  height: 600px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("assets/bg-image.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 100% 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .wrapper {
+    margin-left: 40px;
+
+    h1 {
+      color: $text-white;
+      font-weight: 700;
+      font-size: 96px;
+      line-height: 110%;
+      margin-bottom: 40px;
+    }
+  }
+}

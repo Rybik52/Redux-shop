@@ -12,11 +12,24 @@ header {
   .logo {
     width: 70px;
     height: 70px;
+    transition: all 300ms;
+
+    &:hover {
+      opacity: .8;
+      rotate: -15deg;
+    }
+
   }
 
   .cart {
     width: 48px;
     height: 48px;
+    transition: all 300ms;
+
+    &:hover {
+      opacity: .8;
+      rotate: -15deg;
+    }
   }
 
   ul {

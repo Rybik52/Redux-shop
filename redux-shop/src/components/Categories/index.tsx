@@ -1,6 +1,6 @@
 import { FC } from "react";
-import styles from "./Categories.module.scss";
 import Gallery from "UI/Gallery";
+import styles from "./Categories.module.scss";
 import NoImage from "assets/no-image.png";
 
 interface CategoriesProps {
@@ -13,7 +13,11 @@ const Index: FC<CategoriesProps> = ({ extendButton, data }) => {
         <Gallery title="Categories" extendButton={extendButton}>
             {data.map((item, index) => (
                 <div key={index} className={styles.item}>
-                    <img src={item.img ? item.img : NoImage} alt={item.text} />
+                    <img
+                        loading="lazy"
+                        src={item.img ? item.img : NoImage}
+                        alt={item.text}
+                    />
                     <span>{item.text}</span>
                 </div>
             ))}
