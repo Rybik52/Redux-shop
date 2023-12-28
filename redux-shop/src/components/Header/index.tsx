@@ -1,30 +1,31 @@
 import logo from "assets/logo.svg";
 import chartIco from "assets/cart.svg";
 import styles from "./Header.module.scss";
+import { Link } from "react-router-dom";
 
 const Index = () => {
     return (
         <header>
-            <a href="#" className={styles.logo}>
+            <Link to="/" className={styles.logo}>
                 <img src={logo} alt="logo" />
-            </a>
+            </Link>
             <ul>
                 <li>
-                    <a href="#">Main Page</a>
+                    <Link to="/">Main Page</Link>
                 </li>
                 <li>
-                    <a href="#">Categories</a>
+                    <Link to="/categories">Categories</Link>
                 </li>
                 <li>
-                    <a href="#">All products</a>
+                    <Link to="/allProducts">All products</Link>
                 </li>
                 <li>
-                    <a href="#">All sales</a>
+                    <Link to="/allSales">All sales</Link>
                 </li>
             </ul>
-            <a href="#" className={styles.cart}>
+            <Link to="#" className={styles.cart}>
                 <img src={chartIco} alt="cart ico" />
-            </a>
+            </Link>
         </header>
     );
 };

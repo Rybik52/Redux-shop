@@ -1,6 +1,10 @@
 @import "variables/variables.scss";
+a {
+  text-decoration: none;
+}
 
 .button {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12,6 +16,7 @@
   font-size: 20px;
   padding: 16px 32px;
   transition: background-color 300ms;
+  text-decoration: none;
 
   &:hover {
     cursor: pointer;
