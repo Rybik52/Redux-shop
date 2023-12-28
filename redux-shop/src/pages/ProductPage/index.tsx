@@ -1,18 +1,71 @@
 import styles from "./ProductPage.module.scss";
-import bridgeImg from "assets/bridge.png";
 import Counter from "UI/Counter";
 import Button from "UI/Button";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { ProductsState, setSelectedProduct } from "store/productsSlice";
+
+import NoImage from "assets/no-image.png";
+import NoData from "components/NoData";
 
 const Index = () => {
+    const { id } = useParams();
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        fetch(`http://localhost:3333/products/${id}`)
+            .then((response) => response.json())
+            .then((data) => {
+                dispatch(setSelectedProduct(data));
+            })
+            .catch((error) => {
+                console.error("Error fetching products:", error);
+            });
+    }, [dispatch, id]);
+
+    const productData = useSelector(
+        (state: { products: ProductsState }) =>
+            state.products.selectedProduct[0],
+    );
+
+    console.table(productData);
+
+    if (!productData) {
+        return <NoData>Failed to load product 😥</NoData>;
+    }
+
     return (
         <main>
-            <div className={styles.wrapper}>
-                <img src={bridgeImg} alt="" />
+            <div key={productData.id} className={styles.wrapper}>
+                <img
+                    src={
+                        "http://localhost:3333/" + productData.image || NoImage
+                    }
+                    alt={productData.title}
+                />
                 <div className={styles.info}>
-                    <h3>Secateurs</h3>
+                    <h3>{productData.title}</h3>
                     <div className={styles.price}>
-                        199 <span>240</span>
-                        <span className={styles.discount}>17</span>
+                        {productData.discont_price ? (
+                            <>
+                                {Math.floor(productData.discont_price)}
+                                <span>{Math.round(productData.price)}</span>
+                            </>
+                        ) : (
+                            Math.round(productData.price)
+                        )}
+                        {productData.discont_price && (
+                            <span className={styles.discount}>
+                                {Math.floor(
+                                    ((productData.price -
+                                        productData.discont_price) /
+                                        productData.price) *
+                                        100,
+                                )}
+                            </span>
+                        )}
                     </div>
                     <div className={styles.addToCart}>
                         <Counter />
@@ -20,23 +73,7 @@ const Index = () => {
                     </div>
                     <div className={styles.description}>
                         <h5>Description</h5>
-                        <p>
-                            This high quality everyday secateur features a fully
-                            hardened and tempered, high-carbon steel blade for
-                            lasting sharpness. For comfort, the robust but
-                            lightweight alloy handles are covered in a soft
-                            grip, in a bright terracotta colour for maximum
-                            visibility in the garden. It won’t be easy to leave
-                            this pruner behind at the end of the day! Rubber
-                            cushion stops prevent jarring over repeated use,
-                            reducing hand strain for the user.
-                        </p>
-                        <p>
-                            This secateur cuts up to 2.5 cm diameter. Carrying
-                            RHS endorsement, possibly the highest accolade in
-                            gardening, for peace of mind this pruner comes with
-                            a ten-year guarantee against manufacturing defects.
-                        </p>
+                        <p>{productData.description}</p>
                         <span>Read more</span>
                     </div>
                 </div>

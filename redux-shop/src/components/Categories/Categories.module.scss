@@ -11,7 +11,9 @@
   img {
     background: $bg-secondary;
     border-radius: 12px;
-    object-fit: contain;
+    object-fit: cover;
+    height: 350px;
+
   }
 
   span {
@@ -25,9 +27,4 @@
     opacity: 0.8;
     transform: rotate(3deg);
   }
-}
-
-.wrapper {
-  padding: 0 40px;
-  margin-top: 20px;
 }

@@ -1,21 +1,32 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import Gallery from "UI/Gallery";
+import Wrapper from "UI/Wrapper";
 import styles from "./Categories.module.scss";
 import NoImage from "assets/no-image.png";
-import Wrapper from "UI/Wrapper";
+import { useDispatch, useSelector } from "react-redux";
+import { setAllCategories } from "store/categoriesSlice";
+import { CategoriesProps, Category } from "components/Categories/types";
 
-interface CategoriesProps {
-    data: [
-        {
-            img?: string;
-            text: string;
-        },
-    ];
-    extendButton?: boolean;
-}
+const Index: FC<CategoriesProps> = ({ extendButton }) => {
+    const dispatch = useDispatch();
 
-const Index: FC<CategoriesProps> = ({ extendButton, data }) => {
-    if (!data.length) {
+    useEffect(() => {
+        fetch("http://localhost:3333/categories/all")
+            .then((response) => response.json())
+            .then((data) => {
+                dispatch(setAllCategories(data));
+                console.table(data);
+            })
+            .catch((error) => {
+                console.error("Error fetching products:", error);
+            });
+    }, [dispatch]);
+
+    const categoriesData: Category[] = useSelector(
+        (state: { categories: { data: Category[] } }) => state.categories.data,
+    );
+
+    if (!categoriesData.length) {
         return (
             <div className={styles.wrapper}>
                 <Wrapper title="Error">Failed to load categories 😥</Wrapper>
@@ -25,14 +36,14 @@ const Index: FC<CategoriesProps> = ({ extendButton, data }) => {
 
     return (
         <Gallery title="Categories" extendButton={extendButton}>
-            {data.map((item, index) => (
-                <div key={index} className={styles.item}>
+            {categoriesData.map((item) => (
+                <div key={item.id} className={styles.item}>
                     <img
                         loading="lazy"
-                        src={item.img || NoImage}
-                        alt={item.text}
+                        src={"http://localhost:3333/" + item.image || NoImage}
+                        alt={item.title}
                     />
-                    <span>{item.text}</span>
+                    <span>{item.title}</span>
                 </div>
             ))}
         </Gallery>

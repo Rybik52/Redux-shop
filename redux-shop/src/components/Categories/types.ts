@@ -6,6 +6,6 @@ export interface Category {
     updatedAt: string;
 }
 
-export interface CategoriesState {
-    data: Category[];
+export interface CategoriesProps {
+    extendButton?: boolean;
 }

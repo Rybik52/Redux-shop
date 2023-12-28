@@ -4,8 +4,14 @@ import styles from "./ErrorPage.module.scss";
 import cactus from "assets/cactus.png";
 import Button from "UI/Button";
 
+interface ErrorType {
+    status: number;
+    statusText: string;
+    message: string;
+}
+
 const Index = () => {
-    const error = useRouteError();
+    const error = useRouteError() as ErrorType;
     console.error(error);
 
     return (

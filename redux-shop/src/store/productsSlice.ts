@@ -1,16 +1,26 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Product } from "pages/AllProducts/types";
 
-const productsSlice = createSlice({
+export interface ProductsState {
+    allProducts: Product[];
+    selectedProduct: Product | {};
+}
+
+export const productsSlice = createSlice({
     name: "products",
     initialState: {
         allProducts: [],
-    },
+        selectedProduct: {},
+    } as ProductsState,
     reducers: {
-        setAllProducts: (state, action) => {
+        setAllProducts: (state, action: PayloadAction<Product[]>) => {
             state.allProducts = action.payload;
+        },
+        setSelectedProduct: (state, action: PayloadAction<Product>) => {
+            state.selectedProduct = action.payload;
         },
     },
 });
 
-export const { setAllProducts } = productsSlice.actions;
+export const { setAllProducts, setSelectedProduct } = productsSlice.actions;
 export default productsSlice.reducer;
