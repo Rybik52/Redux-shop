@@ -10,9 +10,11 @@ interface GalleryHeaderProps {
 const GalleryHeader: FC<GalleryHeaderProps> = ({ children, extendButton }) => {
     return (
         <div className={styles.wrapper}>
-            <h2 className={styles.header}>{children.trim()}</h2>
+            <h2 className={styles.header}>{children}</h2>
             {extendButton && (
-                <ExtendButton text={"All " + children.trim().toLowerCase()} />
+                <ExtendButton
+                    text={`All ${(children as string).toLowerCase()}`}
+                />
             )}
         </div>
     );

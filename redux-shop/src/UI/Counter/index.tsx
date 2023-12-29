@@ -1,12 +1,12 @@
 import styles from "./Counter.module.scss";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 const Index = () => {
     const [counter, setCounter] = useState(1);
 
-    const handler = (e) => {
+    const handler = (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
-        setCounter(Math.max(e.target.value, 1));
+        setCounter(Math.max(Number(e.target.value), 1));
     };
 
     return (

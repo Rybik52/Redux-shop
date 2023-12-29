@@ -25,9 +25,10 @@ const Index = () => {
             });
     }, [dispatch, id]);
 
-    const productData = useSelector(
-        (state: { products: ProductsState }) =>
-            state.products.selectedProduct[0],
+    const productData = useSelector((state: { products: ProductsState }) =>
+        Array.isArray(state.products.selectedProduct)
+            ? state.products.selectedProduct[0]
+            : null,
     );
 
     console.table(productData);

@@ -3,14 +3,14 @@ import { Product } from "pages/AllProducts/types";
 
 export interface ProductsState {
     allProducts: Product[];
-    selectedProduct: Product | {};
+    selectedProduct: Product | null;
 }
 
 export const productsSlice = createSlice({
     name: "products",
     initialState: {
         allProducts: [],
-        selectedProduct: {},
+        selectedProduct: null,
     } as ProductsState,
     reducers: {
         setAllProducts: (state, action: PayloadAction<Product[]>) => {

@@ -1,11 +1,11 @@
 import { FC, useEffect } from "react";
 import Gallery from "UI/Gallery";
-import Wrapper from "UI/Wrapper";
 import styles from "./Categories.module.scss";
+import { CategoriesProps, Category } from "components/Categories/types";
+import NoData from "components/NoData";
 import NoImage from "assets/no-image.png";
 import { useDispatch, useSelector } from "react-redux";
 import { setAllCategories } from "store/categoriesSlice";
-import { CategoriesProps, Category } from "components/Categories/types";
 
 const Index: FC<CategoriesProps> = ({ extendButton }) => {
     const dispatch = useDispatch();
@@ -27,11 +27,7 @@ const Index: FC<CategoriesProps> = ({ extendButton }) => {
     );
 
     if (!categoriesData.length) {
-        return (
-            <div className={styles.wrapper}>
-                <Wrapper title="Error">Failed to load categories 😥</Wrapper>
-            </div>
-        );
+        return <NoData>Failed to load categories 😥</NoData>;
     }
 
     return (
